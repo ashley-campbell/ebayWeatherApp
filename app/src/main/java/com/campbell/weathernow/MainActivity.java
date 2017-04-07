@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -66,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return connectivityManager.getActiveNetworkInfo() != null;
+    }
+
     //Permissions need to happen to check location
     public void permissionsCheck() {
         String[] PERMISSIONS = {
@@ -101,6 +108,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startWeather (){
+
+        if (!isNetworkConnected()){
+            //check if device has network connection, cannot run without internet connection
+            TextView deniedText = (TextView) findViewById(R.id.denied);
+            deniedText.setVisibility(View.VISIBLE);
+            deniedString = "It appears you have no network connection, please check network";
+            deniedText.setText(deniedString);
+            return;
+        }
+
         //Get coordinates to view weather, could be placed in separate method
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -350,34 +367,40 @@ public class MainActivity extends AppCompatActivity {
             ImageView icon5 = (ImageView) findViewById(R.id.forcast5_icon);
 
             //Set Icon
-            icon1.setImageBitmap(bitmapArr.get(0));
-            icon2.setImageBitmap(bitmapArr.get(1));
-            icon3.setImageBitmap(bitmapArr.get(2));
-            icon4.setImageBitmap(bitmapArr.get(3));
-            icon5.setImageBitmap(bitmapArr.get(4));
+            if(!bitmapArr.isEmpty() && bitmapArr.size() == 5) {
+                icon1.setImageBitmap(bitmapArr.get(0));
+                icon2.setImageBitmap(bitmapArr.get(1));
+                icon3.setImageBitmap(bitmapArr.get(2));
+                icon4.setImageBitmap(bitmapArr.get(3));
+                icon5.setImageBitmap(bitmapArr.get(4));
+            }
 
             //Set Temperature
-            temp1.setText(tempArr.get(0));
-            temp2.setText(tempArr.get(1));
-            temp3.setText(tempArr.get(2));
-            temp4.setText(tempArr.get(3));
-            temp5.setText(tempArr.get(4));
+            if(!tempArr.isEmpty() && tempArr.size() == 5) {
+                temp1.setText(tempArr.get(0));
+                temp2.setText(tempArr.get(1));
+                temp3.setText(tempArr.get(2));
+                temp4.setText(tempArr.get(3));
+                temp5.setText(tempArr.get(4));
+            }
 
             //Set Main Description
-            main1.setText(mainArr.get(0));
-            main2.setText(mainArr.get(1));
-            main3.setText(mainArr.get(2));
-            main4.setText(mainArr.get(3));
-            main5.setText(mainArr.get(4));
+            if(!mainArr.isEmpty() && mainArr.size() == 5) {
+                main1.setText(mainArr.get(0));
+                main2.setText(mainArr.get(1));
+                main3.setText(mainArr.get(2));
+                main4.setText(mainArr.get(3));
+                main5.setText(mainArr.get(4));
+            }
 
             //Set Description
-            des1.setText(desArr.get(0));
-            des2.setText(desArr.get(1));
-            des3.setText(desArr.get(2));
-            des4.setText(desArr.get(3));
-            des5.setText(desArr.get(4));
-
+            if(!desArr.isEmpty() && desArr.size() == 5) {
+                des1.setText(desArr.get(0));
+                des2.setText(desArr.get(1));
+                des3.setText(desArr.get(2));
+                des4.setText(desArr.get(3));
+                des5.setText(desArr.get(4));
+            }
         }
-
     }
 }
