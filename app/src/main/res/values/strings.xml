@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather Now</string>
+    <string name="current_title">Current Weather</string>
+    <string name="forcast_title">Forcasted Weather</string>
+    <string name="weather_icon">Weather Icon</string>
+    <string name="denied_button">Ask Again</string>
+    <string name="refresh_button">Refresh</string>
+    <string name="three">in 3 hours</string>
+    <string name="six">in 6 hours</string>
+    <string name="nine">in 9 hours</string>
+    <string name="twelve">in 12 hours</string>
+    <string name="fifteen">in 15 hours</string>
+</resources>
